@@ -1,0 +1,71 @@
+<!-- This mainly is a jinja2 loop that checks every item in the -->
+<!-- quiz dictionary, if it get's a match on a form type it invokes a bootstrap form  -->
+
+{% extends 'base.html' %} 
+
+{% block content %}
+<div class="container">
+	</p><h1>{{ title }}</h1></p>
+<form action="/form" method="POST">
+	{% for id, values in quiz.items() %}
+
+	{% if values['form'] == 'input' %}
+	<!-- input -->
+	<div class="form-group">
+	<label for="{{ id }}" class="form-label">{{ values['text'] }}</label>
+	<input type="{{ values['type'] }}" class="form-control" name="{{ id }}"{% if values['required'] == true %} required{% endif %}>
+	</div>
+	{% endif %}
+
+	{% if values['form'] == 'select' %}
+	<!-- select -->
+	<div class="form-group">
+	<label for="{{ id }}" class="form-label">{{ values['text'] }}</label>
+	<select class="form-select" name="{{ id }}" aria-label="{{ values['text'] }}">
+	<option selected></option>
+	{% for option in values['options'] %}
+	<option value="{{ option }}">{{ option }}</option>
+	{% endfor %}
+	</select></div>
+	{% endif %}
+
+	{% if values['form'] == 'checkbox' %}
+	<!-- checkbox -->
+	<div class="form-check{% if values['switch'] == true %} form-switch{% endif %}">
+	<input class="form-check-input"{% if values['switch'] == true %} role="switch"{% endif %} type="checkbox" name="{{ id }}" {% if values['checked'] == true %}checked{% endif %}>
+	<label class="form-check-label" for="{{ id }}">{{ values['text'] }}</label>
+	</div>
+	{% endif %}
+
+	{% if values['form'] == 'radio' %}
+	<!-- radio -->
+	<div class="form-check">
+	<label for="{{ id }}" class="form-label">{{ values['text'] }}</label></br>
+	{% for option in values['options'] %}
+	<input class="form-check-input" type="radio" name="{{ option }}" id="{{ option }}">
+	<label class="form-check-label" for="{{ option }}">{{ option }}</label></br>
+	{% endfor %}
+	</div></p>
+	{% endif %}
+
+	{% if values['form'] == 'range' %}
+	<!-- range -->
+	<div class="form-group">
+	<label for="{{ id }}" class="form-label">{{ values['text'] }}</label>
+	<input type="range" class="form-range" min="{{ values['min'] }}" max="{{ values['max'] }}" step="{{ values['step'] }}" name="{{ id }}">
+	</div></p>
+	{% endif %}
+
+	{% if values['form'] == 'textarea' %}
+	<!-- textarea -->
+	<div class="form-group">
+	<label for="{{ id }}" class="form-label">{{ values['text'] }}</label>
+	<textarea class="form-control" name="{{ id }}" style="height: {{ values['height'] }}px"></textarea>
+	</div>
+	{% endif %}
+
+	{% endfor %}
+	<button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+title: concept quiz
+response: Thanks! Your answers has been saved.
+
+email:
+  type: email
+  text: Email address
+  form: input
+  required: true
+
+pass:
+  type: password
+  text: Password
+  form: input
+  required: true
+
+fruit:
+  text: Select a fruit
+  form: select
+  options:
+    - Apple
+    - Banana
+    - Pear
+
+checkit:
+  text: Check this
+  form: checkbox
+  switch: false
+  checked: true
+
+radios:
+  text: Radio input
+  form: radio
+  options:
+    - Radio This
+    - Radio That
+
+dragit:
+  text: Pull the slider
+  form: range
+  min: 0
+  max: 10
+  step: 1
+
+comments:
+  text: Comments
+  form: textarea
+  height: 100
